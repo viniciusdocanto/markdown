@@ -2,7 +2,13 @@ import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 import hljs from 'highlight.js';
 import { ArrowUp } from 'lucide-react';
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import 'highlight.js/styles/github-dark.css';
+
+function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 // Configurar marked para usar highlight.js e IDs em headings
 const renderer = new marked.Renderer();
