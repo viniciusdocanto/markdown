@@ -189,7 +189,7 @@ function MainEditor() {
         is_public: true,
         share_token: nanoid(12)
       });
-      const shareUrl = `${window.location.origin}/view/${documentId}`;
+      const shareUrl = `${window.location.origin}${import.meta.env.BASE_URL}view/${documentId}`.replace(/([^:]\/)\/+/g, "$1");
       await navigator.clipboard.writeText(shareUrl);
       showToast('Link de compartilhamento copiado!', 'success');
     } catch (error) {
@@ -281,8 +281,9 @@ function ViewOnly() {
 }
 
 export default function App() {
+  const basename = import.meta.env.BASE_URL.replace(/\/$/, '');
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Routes>
         <Route path="/" element={<MainEditor />} />
         <Route path="/view/:id" element={<ViewOnly />} />
