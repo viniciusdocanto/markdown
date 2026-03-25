@@ -55,7 +55,9 @@ Uma aplicação moderna e performática para edição de Markdown com preview em
 
 ## 🚢 Deploy (GitHub Actions)
 
-O projeto está configurado para deploy automático na **Hostinger (ou qualquer servidor via FTP)**. Configure os seguintes Secrets no seu repositório GitHub:
+O projeto está configurado para deploy automático em **qualquer servidor via FTP**.
+
+Configure os seguintes Secrets no seu repositório GitHub:
 
 - `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`: Credenciais do seu servidor.
 - `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY`: Segredos do Supabase.

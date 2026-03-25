@@ -1,6 +1,6 @@
 # Changelog
 
-Todas as mudanças notáveis neste projeto serão documentadas neste---
+Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
 ## ✨ Versão 1.0.0 (Gold) - Março 2026
 
