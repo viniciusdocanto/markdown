@@ -8,11 +8,11 @@ if (import.meta.env.PROD) {
   console.debug = () => {};
 }
 
-const Header = lazy(() => import('./components/Header'));
-const Editor = lazy(() => import('./components/Editor'));
-const Preview = lazy(() => import('./components/Preview'));
-const ThemeToggle = lazy(() => import('./components/ThemeToggle'));
-const Footer = lazy(() => import('./components/Footer'));
+import Header from './components/Header';
+import Editor from './components/Editor';
+import Preview from './components/Preview';
+import ThemeToggle from './components/ThemeToggle';
+import Footer from './components/Footer';
 const MarkdownGuide = lazy(() => import('./components/MarkdownGuide'));
 const Toast = lazy(() => import('./components/Toast'));
 import type { ToastType } from './components/Toast';
@@ -211,32 +211,32 @@ function MainEditor() {
   };
 
   return (
-    <Suspense fallback={<div className="h-screen flex items-center justify-center dark:bg-slate-900 dark:text-white">Carregando...</div>}>
-      <div className="flex flex-col h-screen overflow-hidden bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
-        <Header
-          onNew={handleNew}
-          onCopyMarkdown={handleCopyMarkdown}
-          onShowGuide={() => setShowGuide(true)}
-          onExportPDF={handleExportPDF}
-          onShare={handleShare}
-          syncScroll={syncScroll}
-          onToggleSyncScroll={() => setSyncScroll(!syncScroll)}
-        />
-        <main ref={containerRef} className="flex-1 flex overflow-hidden relative">
-          <div style={{ width: `${splitPosition}%` }} className="h-full border-r border-slate-200 dark:border-slate-800">
-            <Editor value={markdown} onChange={setMarkdown} onScroll={handleEditorScroll} editorRef={editorRef} />
-          </div>
-          <div onMouseDown={() => setIsResizing(true)} className={cn("absolute top-0 bottom-0 w-1 bg-transparent hover:bg-indigo-500/30 cursor-col-resize z-10 transition-colors", isResizing && "bg-indigo-500 w-1")} style={{ left: `calc(${splitPosition}% - 2px)` }} />
-          <div style={{ width: `${100 - splitPosition}%` }} className="h-full bg-white dark:bg-slate-900">
-            <Preview markdown={markdown} onScroll={handlePreviewScroll} previewRef={previewRef} />
-          </div>
-        </main>
-        <Footer />
+    <div className="flex flex-col h-screen overflow-hidden bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+      <Header
+        onNew={handleNew}
+        onCopyMarkdown={handleCopyMarkdown}
+        onShowGuide={() => setShowGuide(true)}
+        onExportPDF={handleExportPDF}
+        onShare={handleShare}
+        syncScroll={syncScroll}
+        onToggleSyncScroll={() => setSyncScroll(!syncScroll)}
+      />
+      <main ref={containerRef} className="flex-1 flex overflow-hidden relative">
+        <div style={{ width: `${splitPosition}%` }} className="h-full border-r border-slate-200 dark:border-slate-800">
+          <Editor value={markdown} onChange={setMarkdown} onScroll={handleEditorScroll} editorRef={editorRef} />
+        </div>
+        <div onMouseDown={() => setIsResizing(true)} className={cn("absolute top-0 bottom-0 w-1 bg-transparent hover:bg-indigo-500/30 cursor-col-resize z-10 transition-colors", isResizing && "bg-indigo-500 w-1")} style={{ left: `calc(${splitPosition}% - 2px)` }} />
+        <div style={{ width: `${100 - splitPosition}%` }} className="h-full bg-white dark:bg-slate-900">
+          <Preview markdown={markdown} onScroll={handlePreviewScroll} previewRef={previewRef} />
+        </div>
+      </main>
+      <Footer />
+      <Suspense fallback={null}>
         <MarkdownGuide isOpen={showGuide} onClose={() => setShowGuide(false)} />
         {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
-        {isLoading && <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[100] flex items-center justify-center text-white font-medium">Salvando...</div>}
-      </div>
-    </Suspense>
+      </Suspense>
+      {isLoading && <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[100] flex items-center justify-center text-white font-medium">Salvando...</div>}
+    </div>
   );
 }
 
