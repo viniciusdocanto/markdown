@@ -1,5 +1,12 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
+
+// Supressão de logs em produção para segurança
+if (import.meta.env.PROD) {
+  console.error = () => {};
+  console.warn = () => {};
+  console.debug = () => {};
+}
 import Header from './components/Header';
 import Editor from './components/Editor';
 import Preview from './components/Preview';
@@ -70,7 +77,13 @@ function MainEditor() {
     const timeout = setTimeout(() => {
       localStorage.setItem('markdown-content', markdown);
 
-      const history = JSON.parse(localStorage.getItem('markdown-history') || '[]');
+      let history = [];
+      try {
+        history = JSON.parse(localStorage.getItem('markdown-history') || '[]');
+      } catch (e) {
+        console.warn('Erro ao carregar histórico local, resetando...', e);
+      }
+      
       if (markdown && markdown !== history[0]) {
         const newHistory = [markdown, ...history].slice(0, 5);
         localStorage.setItem('markdown-history', JSON.stringify(newHistory));
