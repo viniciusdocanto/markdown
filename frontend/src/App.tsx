@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { lazy, Suspense, useState, useCallback, useRef, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 
 // Supressão de logs em produção para segurança
@@ -7,13 +7,14 @@ if (import.meta.env.PROD) {
   console.warn = () => {};
   console.debug = () => {};
 }
-import Header from './components/Header';
-import Editor from './components/Editor';
-import Preview from './components/Preview';
-import ThemeToggle from './components/ThemeToggle';
-import Footer from './components/Footer';
-import MarkdownGuide from './components/MarkdownGuide';
-import Toast, { ToastType } from './components/Toast';
+
+const Header = lazy(() => import('./components/Header'));
+const Editor = lazy(() => import('./components/Editor'));
+const Preview = lazy(() => import('./components/Preview'));
+const ThemeToggle = lazy(() => import('./components/ThemeToggle'));
+const Footer = lazy(() => import('./components/Footer'));
+const MarkdownGuide = lazy(() => import('./components/MarkdownGuide'));
+const Toast = lazy(() => import('./components/Toast'));
 import { FileText } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -209,30 +210,32 @@ function MainEditor() {
   };
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
-      <Header
-        onNew={handleNew}
-        onCopyMarkdown={handleCopyMarkdown}
-        onShowGuide={() => setShowGuide(true)}
-        onExportPDF={handleExportPDF}
-        onShare={handleShare}
-        syncScroll={syncScroll}
-        onToggleSyncScroll={() => setSyncScroll(!syncScroll)}
-      />
-      <main ref={containerRef} className="flex-1 flex overflow-hidden relative">
-        <div style={{ width: `${splitPosition}%` }} className="h-full border-r border-slate-200 dark:border-slate-800">
-          <Editor value={markdown} onChange={setMarkdown} onScroll={handleEditorScroll} editorRef={editorRef} />
-        </div>
-        <div onMouseDown={() => setIsResizing(true)} className={cn("absolute top-0 bottom-0 w-1 bg-transparent hover:bg-indigo-500/30 cursor-col-resize z-10 transition-colors", isResizing && "bg-indigo-500 w-1")} style={{ left: `calc(${splitPosition}% - 2px)` }} />
-        <div style={{ width: `${100 - splitPosition}%` }} className="h-full bg-white dark:bg-slate-900">
-          <Preview markdown={markdown} onScroll={handlePreviewScroll} previewRef={previewRef} />
-        </div>
-      </main>
-      <Footer />
-      <MarkdownGuide isOpen={showGuide} onClose={() => setShowGuide(false)} />
-      {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
-      {isLoading && <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[100] flex items-center justify-center text-white font-medium">Salvando...</div>}
-    </div>
+    <Suspense fallback={<div className="h-screen flex items-center justify-center dark:bg-slate-900 dark:text-white">Carregando...</div>}>
+      <div className="flex flex-col h-screen overflow-hidden bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+        <Header
+          onNew={handleNew}
+          onCopyMarkdown={handleCopyMarkdown}
+          onShowGuide={() => setShowGuide(true)}
+          onExportPDF={handleExportPDF}
+          onShare={handleShare}
+          syncScroll={syncScroll}
+          onToggleSyncScroll={() => setSyncScroll(!syncScroll)}
+        />
+        <main ref={containerRef} className="flex-1 flex overflow-hidden relative">
+          <div style={{ width: `${splitPosition}%` }} className="h-full border-r border-slate-200 dark:border-slate-800">
+            <Editor value={markdown} onChange={setMarkdown} onScroll={handleEditorScroll} editorRef={editorRef} />
+          </div>
+          <div onMouseDown={() => setIsResizing(true)} className={cn("absolute top-0 bottom-0 w-1 bg-transparent hover:bg-indigo-500/30 cursor-col-resize z-10 transition-colors", isResizing && "bg-indigo-500 w-1")} style={{ left: `calc(${splitPosition}% - 2px)` }} />
+          <div style={{ width: `${100 - splitPosition}%` }} className="h-full bg-white dark:bg-slate-900">
+            <Preview markdown={markdown} onScroll={handlePreviewScroll} previewRef={previewRef} />
+          </div>
+        </main>
+        <Footer />
+        <MarkdownGuide isOpen={showGuide} onClose={() => setShowGuide(false)} />
+        {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
+        {isLoading && <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[100] flex items-center justify-center text-white font-medium">Salvando...</div>}
+      </div>
+    </Suspense>
   );
 }
 
@@ -263,31 +266,33 @@ function ViewOnly() {
   if (error) return <div className="h-screen flex items-center justify-center dark:bg-slate-900 dark:text-white text-red-500">Documento não encontrado ou erro ao carregar.</div>;
 
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-slate-900 transition-colors duration-300">
-      <header className="h-16 px-6 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-between sticky top-0 z-50">
-        <div className="flex items-center gap-3">
-          <div className="bg-indigo-600 p-2 rounded-lg">
-            <FileText className="text-white" size={20} />
+    <Suspense fallback={<div className="h-screen flex items-center justify-center dark:bg-slate-900 dark:text-white">Carregando...</div>}>
+      <div className="min-h-screen flex flex-col bg-white dark:bg-slate-900 transition-colors duration-300">
+        <header className="h-16 px-6 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-between sticky top-0 z-50">
+          <div className="flex items-center gap-3">
+            <div className="bg-indigo-600 p-2 rounded-lg">
+              <FileText className="text-white" size={20} />
+            </div>
+            <span className="font-bold text-slate-900 dark:text-white">Leitor</span>
           </div>
-          <span className="font-bold text-slate-900 dark:text-white">Leitor</span>
+          <div className="flex items-center gap-4">
+            <a
+              href="/markdown/"
+              className="text-sm font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+            >
+              Ir para o Editor
+            </a>
+            <ThemeToggle />
+          </div>
+        </header>
+        <div className="flex-1">
+          <div className="max-w-4xl mx-auto">
+            <Preview markdown={content} previewRef={previewRef} fullPageScroll={true} />
+          </div>
         </div>
-        <div className="flex items-center gap-4">
-          <a
-            href="/markdown/"
-            className="text-sm font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
-          >
-            Ir para o Editor
-          </a>
-          <ThemeToggle />
-        </div>
-      </header>
-      <div className="flex-1">
-        <div className="max-w-4xl mx-auto">
-          <Preview markdown={content} previewRef={previewRef} fullPageScroll={true} />
-        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </Suspense>
   );
 }
 
