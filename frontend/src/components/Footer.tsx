@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
           <span>© {currentYear}</span>
-          <span className="font-semibold text-slate-900 dark:text-white">Markdown Premium</span>
+          <span className="font-semibold text-slate-900 dark:text-white">Markdown</span>
           <span className="hidden md:inline">•</span>
           <span className="flex items-center gap-1">
             Feito por

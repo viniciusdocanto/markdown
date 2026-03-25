@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 import Header from './components/Header';
 import Editor from './components/Editor';
 import Preview from './components/Preview';
-import ThemeToggle from './ThemeToggle';
+import ThemeToggle from './components/ThemeToggle';
 import Footer from './components/Footer';
 import MarkdownGuide from './components/MarkdownGuide';
 import Toast, { ToastType } from './components/Toast';
@@ -56,7 +56,7 @@ function MainEditor() {
   const [isLoading, setIsLoading] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
   const [documentId, setDocumentId] = useState(() => localStorage.getItem('document-id') || nanoid(10));
-  
+
   const containerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<HTMLTextAreaElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
@@ -69,14 +69,14 @@ function MainEditor() {
   useEffect(() => {
     const timeout = setTimeout(() => {
       localStorage.setItem('markdown-content', markdown);
-      
+
       const history = JSON.parse(localStorage.getItem('markdown-history') || '[]');
       if (markdown && markdown !== history[0]) {
         const newHistory = [markdown, ...history].slice(0, 5);
         localStorage.setItem('markdown-history', JSON.stringify(newHistory));
       }
     }, 1000);
-    
+
     return () => clearTimeout(timeout);
   }, [markdown]);
 
@@ -197,7 +197,7 @@ function MainEditor() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
-      <Header 
+      <Header
         onNew={handleNew}
         onCopyMarkdown={handleCopyMarkdown}
         onShowGuide={() => setShowGuide(true)}
@@ -256,10 +256,10 @@ function ViewOnly() {
           <div className="bg-indigo-600 p-2 rounded-lg">
             <FileText className="text-white" size={20} />
           </div>
-          <span className="font-bold text-slate-900 dark:text-white">Leitor Premium</span>
+          <span className="font-bold text-slate-900 dark:text-white">Leitor</span>
         </div>
         <div className="flex items-center gap-4">
-          <a 
+          <a
             href="/"
             className="text-sm font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
           >
