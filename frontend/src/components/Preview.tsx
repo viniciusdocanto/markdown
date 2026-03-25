@@ -28,9 +28,10 @@ interface PreviewProps {
   markdown: string;
   onScroll?: (e: React.UIEvent<HTMLDivElement>) => void;
   previewRef?: React.RefObject<HTMLDivElement>;
+  fullPageScroll?: boolean;
 }
 
-export default function Preview({ markdown, onScroll, previewRef }: PreviewProps) {
+export default function Preview({ markdown, onScroll, previewRef, fullPageScroll = false }: PreviewProps) {
   const html = DOMPurify.sanitize(marked.parse(markdown) as string);
 
   const handleAnchorClick = (e: React.MouseEvent) => {
@@ -41,25 +42,40 @@ export default function Preview({ markdown, onScroll, previewRef }: PreviewProps
     if (anchor && href && href.startsWith('#')) {
       e.preventDefault();
       const id = decodeURIComponent(href.slice(1));
-      const element = previewRef?.current?.querySelector(`[id="${id}"]`);
+      const element = (fullPageScroll ? document : previewRef?.current)?.querySelector(`[id="${id}"]`);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        if (fullPageScroll) {
+          window.scrollTo({ top: (element as HTMLElement).offsetTop - 80, behavior: 'smooth' });
+        } else {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     }
   };
 
+  const scrollToTop = () => {
+    if (fullPageScroll) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      previewRef?.current?.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="h-full relative font-sans">
+    <div className={cn("relative font-sans", !fullPageScroll && "h-full")}>
       <div 
         ref={previewRef}
-        onScroll={onScroll}
+        onScroll={!fullPageScroll ? onScroll : undefined}
         onClick={handleAnchorClick}
-        className="h-full overflow-y-auto bg-white dark:bg-slate-900 p-8 prose dark:prose-invert prose-slate max-w-none scroll-smooth">
+        className={cn(
+          "bg-white dark:bg-slate-900 p-8 prose dark:prose-invert prose-slate max-w-none scroll-smooth",
+          fullPageScroll ? "h-auto" : "h-full overflow-y-auto"
+        )}>
         <div className="markdown-body" dangerouslySetInnerHTML={{ __html: html }} />
       </div>
       <button
-        onClick={() => previewRef?.current?.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="absolute bottom-6 right-6 p-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all text-slate-500 hover:text-indigo-500"
+        onClick={scrollToTop}
+        className="fixed bottom-6 right-6 p-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all text-slate-500 hover:text-indigo-500 z-[60]"
         title="Scroll para o topo"
       >
         <ArrowUp size={18} />

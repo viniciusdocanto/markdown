@@ -271,9 +271,9 @@ function ViewOnly() {
           <ThemeToggle />
         </div>
       </header>
-      <div className="flex-1 overflow-hidden">
-        <div className="max-w-4xl mx-auto h-full">
-          <Preview markdown={content} previewRef={previewRef} />
+      <div className="flex-1">
+        <div className="max-w-4xl mx-auto">
+          <Preview markdown={content} previewRef={previewRef} fullPageScroll={true} />
         </div>
       </div>
     </div>
