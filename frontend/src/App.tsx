@@ -253,7 +253,7 @@ function ViewOnly() {
   if (error) return <div className="h-screen flex items-center justify-center dark:bg-slate-900 dark:text-white text-red-500">Documento não encontrado ou erro ao carregar.</div>;
 
   return (
-    <div className="h-screen flex flex-col bg-white dark:bg-slate-900 transition-colors duration-300">
+    <div className="min-h-screen flex flex-col bg-white dark:bg-slate-900 transition-colors duration-300">
       <header className="h-16 px-6 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-between sticky top-0 z-50">
         <div className="flex items-center gap-3">
           <div className="bg-indigo-600 p-2 rounded-lg">
