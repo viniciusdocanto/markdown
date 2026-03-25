@@ -62,11 +62,11 @@ export default function MarkdownGuide({ isOpen, onClose }: MarkdownGuideProps) {
         <header className="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50">
           <div>
             <h2 className="text-xl font-bold text-slate-900 dark:text-white">Guia de Markdown</h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Aprenda a formatar seus documentos com facilidade</p>
+            <p className="text-sm text-slate-700 dark:text-slate-400 mt-1">Aprenda a formatar seus documentos com facilidade</p>
           </div>
           <button 
             onClick={onClose}
-            className="p-2 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full text-slate-500 transition-colors"
+            className="p-2 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full text-slate-700 transition-colors"
           >
             <X size={24} />
           </button>
@@ -79,7 +79,7 @@ export default function MarkdownGuide({ isOpen, onClose }: MarkdownGuideProps) {
                 <span className="text-sm font-bold text-slate-700 dark:text-slate-300">{item.title}</span>
                 <button 
                   onClick={() => handleCopy(item.markdown, index)}
-                  className="text-slate-400 hover:text-indigo-500 transition-colors flex items-center gap-1 text-xs"
+                  className="text-slate-600 dark:text-slate-400 hover:text-indigo-500 transition-colors flex items-center gap-1 text-xs"
                 >
                   {copiedIndex === index ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
                   {copiedIndex === index ? 'Copiado!' : 'Copiar'}
@@ -87,13 +87,13 @@ export default function MarkdownGuide({ isOpen, onClose }: MarkdownGuideProps) {
               </div>
               <div className="p-4 grid grid-cols-2 gap-4 divide-x divide-slate-100 dark:divide-slate-800">
                 <div className="space-y-2">
-                  <span className="text-[10px] uppercase font-bold text-slate-400">Código</span>
+                  <span className="text-[10px] uppercase font-bold text-slate-700">Código</span>
                   <pre className="text-xs font-mono text-slate-600 dark:text-slate-400 bg-transparent whitespace-pre-wrap">
                     {item.markdown}
                   </pre>
                 </div>
                 <div className="space-y-2 pl-4">
-                  <span className="text-[10px] uppercase font-bold text-slate-400">Resultado</span>
+                  <span className="text-[10px] uppercase font-bold text-slate-700">Resultado</span>
                   <div className="text-sm text-slate-800 dark:text-slate-200 prose prose-sm dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: item.preview }} />
                 </div>
               </div>
@@ -102,7 +102,7 @@ export default function MarkdownGuide({ isOpen, onClose }: MarkdownGuideProps) {
         </div>
 
         <footer className="p-4 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-800 text-center">
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-slate-700 dark:text-slate-400">
             Dica: Você também pode usar atalhos de teclado comuns como Ctrl+B para Negrito em muitos editores.
           </p>
         </footer>

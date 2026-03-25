@@ -103,7 +103,7 @@ const Preview = memo(function Preview({ markdown, onScroll, previewRef, fullPage
       </div>
       <button
         onClick={scrollToTop}
-        className="fixed bottom-6 right-6 p-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-full shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all text-slate-500 hover:text-indigo-500 z-[60]"
+        className="fixed bottom-6 right-6 p-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-full shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all text-slate-700 hover:text-indigo-500 z-[60]"
         title="Scroll para o topo"
       >
         <ArrowUp size={18} />
