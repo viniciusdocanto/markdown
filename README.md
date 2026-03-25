@@ -44,7 +44,11 @@ Uma aplicação moderna e performática para edição de Markdown com preview em
 4.  **Configure o Banco**:
     Execute o conteúdo de `supabase_schema.sql` no SQL Editor do seu projeto Supabase.
 
-5.  **Inicie o desenvolvimento**:
+5. - **UI/UX**: Modo Dark, botões "Scroll to Top", notificações Toast e cabeçalho premium.
+- **Identidade**: Adicionado rodapé com links sociais e informações de copyright.
+- **Legal**: Adicionada licença MIT.
+- **CI/CD**: Workflow de GitHub Actions para deploy via FTP.
+    **Inicie o desenvolvimento**:
     ```bash
     npm run dev
     ```
@@ -56,5 +60,9 @@ O projeto está configurado para deploy automático na **Hostinger (ou qualquer 
 - `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`: Credenciais do seu servidor.
 - `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY`: Segredos do Supabase.
 
+## 📄 Licença
+
+Este projeto está sob a licença [MIT](LICENSE).
+
 ---
-Desenvolvido com foco em performance e segurança.
+Desenvolvido por [Vinicius do Canto](https://docanto.net).

@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Editor from './components/Editor';
 import Preview from './components/Preview';
 import ThemeToggle from './components/ThemeToggle';
+import Footer from './components/Footer';
 import Toast, { ToastType } from './components/Toast';
 import { FileText } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
@@ -220,6 +221,7 @@ function MainEditor() {
           <Preview markdown={markdown} onScroll={handlePreviewScroll} previewRef={previewRef} />
         </div>
       </main>
+      <Footer />
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
       {isLoading && <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[100] flex items-center justify-center text-white font-medium">Salvando...</div>}
     </div>
@@ -276,6 +278,7 @@ function ViewOnly() {
           <Preview markdown={content} previewRef={previewRef} fullPageScroll={true} />
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
