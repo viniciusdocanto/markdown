@@ -25,7 +25,7 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 - **CI/CD**: Deploy automatizado via GitHub Actions para Hostinger (FTP).
 
 ### Alterado
-- **Performance**: Otimização de renderização e carregamento de fontes.
+- **Performance**: Otimização de renderização, carregamento de fontes e implementação de políticas de cache eficientes no `.htaccess` (1 ano para assets versionados).
 - **Tipagem**: Migração completa para TypeScript estrito com `vite-env.d.ts`.
 
 ### Removido
