@@ -25,9 +25,9 @@ export default function Toast({ message, type = 'success', onClose }: ToastProps
     <div className="fixed bottom-6 right-6 z-[100] animate-in fade-in slide-in-from-bottom-4 duration-300">
       <div className={cn(
         "flex items-center gap-3 px-4 py-3 rounded-xl shadow-2xl border min-w-[300px]",
-        type === 'success' && "bg-emerald-50 border-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:border-emerald-900 dark:text-emerald-400",
-        type === 'error' && "bg-red-50 border-red-100 text-red-800 dark:bg-red-950/50 dark:border-red-900 dark:text-red-400",
-        type === 'info' && "bg-indigo-50 border-indigo-100 text-indigo-800 dark:bg-indigo-950/50 dark:border-indigo-900 dark:text-indigo-400"
+        type === 'success' && "bg-emerald-100 border-emerald-200 text-emerald-900 dark:bg-emerald-950/70 dark:border-emerald-800 dark:text-emerald-400",
+        type === 'error' && "bg-red-100 border-red-200 text-red-900 dark:bg-red-950/70 dark:border-red-800 dark:text-red-400",
+        type === 'info' && "bg-indigo-100 border-indigo-200 text-indigo-900 dark:bg-indigo-950/70 dark:border-indigo-800 dark:text-indigo-400"
       )}>
         {type === 'success' && <CheckCircle size={20} />}
         {type === 'error' && <AlertCircle size={20} />}

@@ -15,6 +15,7 @@ const ThemeToggle = lazy(() => import('./components/ThemeToggle'));
 const Footer = lazy(() => import('./components/Footer'));
 const MarkdownGuide = lazy(() => import('./components/MarkdownGuide'));
 const Toast = lazy(() => import('./components/Toast'));
+import type { ToastType } from './components/Toast';
 import { FileText } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
