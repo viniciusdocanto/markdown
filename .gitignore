@@ -1,0 +1,29 @@
+# Dependências
+node_modules/
+frontend/node_modules/
+
+# Builds
+dist/
+frontend/dist/
+
+# Ambiente e Segredos
+.env
+.env.local
+.env.*.local
+frontend/.env
+frontend/.env.local
+
+# IDEs e OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+
+# Antigravity / Agents
+.agent/
+frontend/.agent/
+
+# Documentação Interna (Conforme regra do usuário)
+docs/
+supabase_schema.sql
