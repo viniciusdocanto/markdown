@@ -1,8 +1,8 @@
-# 📝 Markdown Editor Premium - Serverless
+# 📝 Markdown Editor - Serverless
 
 Uma aplicação moderna e performática para edição de Markdown com preview em tempo real, construída com foco em UX e facilidade de deploy.
 
-![Markdown Editor](https://via.placeholder.com/1200x600?text=Markdown+Editor+Premium)
+![Markdown Editor](https://placehold.co/1200x600/?text=Markdown+Editor)
 
 ## 🚀 Funcionalidades
 
