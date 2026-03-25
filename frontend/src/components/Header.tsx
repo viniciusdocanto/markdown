@@ -1,12 +1,12 @@
 import ThemeToggle from './ThemeToggle';
-import { FileText, Download, Copy, Share2, Plus, Link, Link2Off } from 'lucide-react';
+import { FileText, Download, Copy, Share2, Plus, Link, Link2Off, Info } from 'lucide-react';
 import { clsx } from 'clsx';
 
 interface HeaderProps {
   onNew: () => void;
   onExportPDF: () => void;
   onCopyMarkdown: () => void;
-  onCopyHTML: () => void;
+  onShowGuide: () => void;
   onShare: () => void;
   syncScroll: boolean;
   onToggleSyncScroll: () => void;
@@ -16,7 +16,7 @@ export default function Header({
   onNew,
   onExportPDF,
   onCopyMarkdown,
-  onCopyHTML,
+  onShowGuide,
   onShare,
   syncScroll,
   onToggleSyncScroll,
@@ -52,11 +52,11 @@ export default function Header({
             <Copy size={20} />
           </button>
           <button 
-            onClick={onCopyHTML}
+            onClick={onShowGuide}
             className="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg" 
-            title="Copiar HTML"
+            title="Guia de Markdown"
           >
-            <Copy size={20} className="stroke-[1.5px]" />
+            <Info size={20} className="stroke-[1.5px]" />
           </button>
           <button 
             onClick={onExportPDF}

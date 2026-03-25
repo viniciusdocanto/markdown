@@ -3,8 +3,9 @@ import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 import Header from './components/Header';
 import Editor from './components/Editor';
 import Preview from './components/Preview';
-import ThemeToggle from './components/ThemeToggle';
+import ThemeToggle from './ThemeToggle';
 import Footer from './components/Footer';
+import MarkdownGuide from './components/MarkdownGuide';
 import Toast, { ToastType } from './components/Toast';
 import { FileText } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
@@ -53,6 +54,7 @@ function MainEditor() {
   const [syncScroll, setSyncScroll] = useState(true);
   const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showGuide, setShowGuide] = useState(false);
   const [documentId, setDocumentId] = useState(() => localStorage.getItem('document-id') || nanoid(10));
   
   const containerRef = useRef<HTMLDivElement>(null);
@@ -133,14 +135,6 @@ function MainEditor() {
     showToast('Markdown copiado!', 'success');
   };
 
-  const handleCopyHTML = () => {
-    const previewElement = document.querySelector('.markdown-body');
-    if (previewElement) {
-      navigator.clipboard.writeText(previewElement.innerHTML);
-      showToast('HTML renderizado copiado!', 'success');
-    }
-  };
-
   const handleExportPDF = () => {
     const element = document.querySelector('.markdown-body');
     if (!element) return;
@@ -206,7 +200,7 @@ function MainEditor() {
       <Header 
         onNew={handleNew}
         onCopyMarkdown={handleCopyMarkdown}
-        onCopyHTML={handleCopyHTML}
+        onShowGuide={() => setShowGuide(true)}
         onExportPDF={handleExportPDF}
         onShare={handleShare}
         syncScroll={syncScroll}
@@ -222,6 +216,7 @@ function MainEditor() {
         </div>
       </main>
       <Footer />
+      <MarkdownGuide isOpen={showGuide} onClose={() => setShowGuide(false)} />
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
       {isLoading && <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[100] flex items-center justify-center text-white font-medium">Salvando...</div>}
     </div>
