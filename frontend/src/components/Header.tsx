@@ -1,10 +1,11 @@
 import ThemeToggle from './ThemeToggle';
-import { FileText, Download, Copy, Share2, Plus, Link, Link2Off, Info } from 'lucide-react';
+import { FileText, FileDown, Download, Copy, Share2, Plus, Link, Link2Off, Info } from 'lucide-react';
 import { clsx } from 'clsx';
 
 interface HeaderProps {
   onNew: () => void;
   onExportPDF: () => void;
+  onExportMarkdown: () => void;
   onCopyMarkdown: () => void;
   onShowGuide: () => void;
   onShare: () => void;
@@ -15,6 +16,7 @@ interface HeaderProps {
 export default function Header({
   onNew,
   onExportPDF,
+  onExportMarkdown,
   onCopyMarkdown,
   onShowGuide,
   onShare,
@@ -64,6 +66,13 @@ export default function Header({
             title="Exportar PDF"
           >
             <Download size={20} />
+          </button>
+          <button
+            onClick={onExportMarkdown}
+            className="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+            title="Exportar Markdown (.md)"
+          >
+            <FileDown size={20} />
           </button>
           <button
             onClick={onShare}
