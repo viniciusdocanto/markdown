@@ -184,6 +184,31 @@ function MainEditor() {
     });
   };
 
+  const handleExportMarkdown = () => {
+    try {
+      const blob = new Blob([markdown], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const now = new Date();
+      const dateStr = now.getFullYear().toString() + 
+                     (now.getMonth() + 1).toString().padStart(2, '0') + 
+                     now.getDate().toString().padStart(2, '0');
+      const timeStr = now.getHours().toString().padStart(2, '0') + '.' + 
+                     now.getMinutes().toString().padStart(2, '0');
+      
+      a.href = url;
+      a.download = `markdown-export-data-${dateStr}-${timeStr}.md`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Markdown exportado!', 'success');
+    } catch (error) {
+      console.error(error);
+      showToast('Erro ao exportar Markdown.', 'error');
+    }
+  };
+
   const handleShare = async () => {
     try {
       if (!markdown.trim()) {
@@ -217,6 +242,7 @@ function MainEditor() {
         onCopyMarkdown={handleCopyMarkdown}
         onShowGuide={() => setShowGuide(true)}
         onExportPDF={handleExportPDF}
+        onExportMarkdown={handleExportMarkdown}
         onShare={handleShare}
         syncScroll={syncScroll}
         onToggleSyncScroll={() => setSyncScroll(!syncScroll)}
