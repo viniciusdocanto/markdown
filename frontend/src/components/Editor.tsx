@@ -20,13 +20,6 @@ export default function Editor({ value, onChange, onScroll, editorRef }: EditorP
           placeholder="Comece a digitar seu markdown aqui..."
           spellCheck={false}
         />
-        <button
-          onClick={() => editorRef?.current?.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="absolute bottom-12 right-6 p-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all text-slate-500 hover:text-indigo-500 z-10"
-          title="Scroll para o topo"
-        >
-          <ArrowUp size={18} />
-        </button>
       </div>
       <div className="h-8 px-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[10px] text-slate-400 font-medium uppercase tracking-wider bg-white dark:bg-slate-900">
         <div className="flex gap-4">
