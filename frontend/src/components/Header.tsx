@@ -48,21 +48,21 @@ export default function Header({
         <div className="flex items-center gap-1">
           <button
             onClick={onCopyMarkdown}
-            className="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg tooltip"
+            className="p-2 text-slate-700 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg tooltip"
             title="Copiar Markdown"
           >
             <Copy size={20} />
           </button>
           <button
             onClick={onShowGuide}
-            className="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+            className="p-2 text-slate-700 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
             title="Guia de Markdown"
           >
             <Info size={20} className="stroke-[1.5px]" />
           </button>
           <button
             onClick={onExportPDF}
-            className="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+            className="p-2 text-slate-700 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
             title="Exportar PDF"
           >
             <Download size={20} />
@@ -76,7 +76,7 @@ export default function Header({
           </button>
           <button
             onClick={onShare}
-            className="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+            className="p-2 text-slate-700 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
             title="Compartilhar"
           >
             <Share2 size={20} />
@@ -87,7 +87,7 @@ export default function Header({
               "p-2 rounded-lg transition-colors",
               syncScroll
                 ? "text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30"
-                : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                : "text-slate-700 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
             )}
             title={syncScroll ? "Sincronização Ativada" : "Sincronização Desativada"}
           >
