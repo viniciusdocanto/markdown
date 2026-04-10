@@ -31,6 +31,17 @@ jobs:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
+      - name: Prepare FTP Path
+        id: prepare_path
+        run: |
+          PATH_VAL="${{ secrets.FTP_REMOTE_PATH }}"
+          if [ -z "$PATH_VAL" ]; then
+            PATH_VAL="/"
+          elif [[ "$PATH_VAL" != */ ]]; then
+            PATH_VAL="$PATH_VAL/"
+          fi
+          echo "ftp_path=$PATH_VAL" >> $GITHUB_OUTPUT
+
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -38,4 +49,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: frontend/dist/
-          server-dir: ${{ secrets.FTP_REMOTE_PATH || '/' }}${{ endsWith(secrets.FTP_REMOTE_PATH, '/') && '' || (secrets.FTP_REMOTE_PATH && '/' || '') }}
+          server-dir: ${{ steps.prepare_path.outputs.ftp_path }}
