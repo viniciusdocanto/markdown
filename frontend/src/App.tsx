@@ -16,7 +16,7 @@ import Footer from './components/Footer';
 const MarkdownGuide = lazy(() => import('./components/MarkdownGuide'));
 const Toast = lazy(() => import('./components/Toast'));
 import type { ToastType } from './components/Toast';
-import { FileText } from 'lucide-react';
+import { FileText, Download } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { saveDocument, getDocument } from './lib/supabase';
@@ -273,6 +273,19 @@ function ViewOnly() {
   const [error, setError] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
 
+  const handleDownloadMarkdown = useCallback(() => {
+    if (!content) return;
+    const blob = new Blob([content], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `documento-${id ?? 'markdown'}.md`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, [content, id]);
+
   useEffect(() => {
     async function load() {
       if (!id) return;
@@ -309,6 +322,15 @@ function ViewOnly() {
             >
               Ir para o Editor
             </a>
+            <button
+              onClick={handleDownloadMarkdown}
+              disabled={loading || !content}
+              title="Baixar arquivo Markdown"
+              className="flex items-center gap-1.5 text-sm font-medium px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-colors"
+            >
+              <Download size={15} />
+              <span>Baixar .md</span>
+            </button>
             <ThemeToggle />
           </div>
         </header>

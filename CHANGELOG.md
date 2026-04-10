@@ -4,6 +4,11 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
 ## ✨ Versão 1.0.0 (Gold) - Março 2026
 
+### Adicionado (Patch - Abril 2026)
+- **Download no Leitor**: Botão "Baixar .md" no header da página de leitura de documentos compartilhados, permitindo salvar o conteúdo como arquivo Markdown.
+
+
+
 - **Segurança Blindada**: Implementação de Content Security Policy (CSP), Referrer Policy e X-Content-Type-Options.
 - **Resiliência de Dados**: Tratamento de erros (`try/catch`) no acesso ao `localStorage`.
 - **Higiene de Logs**: Supressão de mensagens de console em ambiente de produção.
