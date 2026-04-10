@@ -42,6 +42,7 @@ export const getDocument = async (documentId: string) => {
     .from('documents')
     .select('id, document_id, title, content, is_public, created_at, updated_at')
     .eq('document_id', documentId)
+    .eq('is_public', true)
     .maybeSingle();
 
 

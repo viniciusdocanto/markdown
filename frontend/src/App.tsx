@@ -52,7 +52,11 @@ Experimente editar este texto!
 
 function MainEditor() {
   const [markdown, setMarkdown] = useState(() => {
-    return localStorage.getItem('markdown-content') || DEFAULT_MARKDOWN;
+    try {
+      return localStorage.getItem('markdown-content') || DEFAULT_MARKDOWN;
+    } catch (e) {
+      return DEFAULT_MARKDOWN;
+    }
   });
   const [isResizing, setIsResizing] = useState(false);
   const [splitPosition, setSplitPosition] = useState(50);
@@ -61,8 +65,20 @@ function MainEditor() {
   const [isLoading, setIsLoading] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
   const [showTemplates, setShowTemplates] = useState(false);
-  const [documentId, setDocumentId] = useState(() => localStorage.getItem('document-id') || nanoid(10));
-  const [shareToken, setShareToken] = useState(() => localStorage.getItem('share-token') || nanoid(12));
+  const [documentId, setDocumentId] = useState(() => {
+    try {
+      return localStorage.getItem('document-id') || nanoid(10);
+    } catch (e) {
+      return nanoid(10);
+    }
+  });
+  const [shareToken, setShareToken] = useState(() => {
+    try {
+      return localStorage.getItem('share-token') || nanoid(12);
+    } catch (e) {
+      return nanoid(12);
+    }
+  });
 
   const containerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<HTMLTextAreaElement>(null);
@@ -330,7 +346,7 @@ function ViewOnly() {
           </div>
           <div className="flex items-center gap-4">
             <a
-              href="/markdown/"
+              href={import.meta.env.BASE_URL}
               className="text-sm font-medium text-indigo-700 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
             >
               Ir para o Editor

@@ -16,7 +16,5 @@
   "author": "Vinicius do Canto <vinicius@docanto.net>",
   "license": "ISC",
   "type": "commonjs",
-  "devDependencies": {
-    "eslint": "^10.1.0"
-  }
+  "devDependencies": {}
 }

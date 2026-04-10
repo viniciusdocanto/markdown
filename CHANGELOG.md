@@ -14,6 +14,10 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 - **Higiene de Logs**: Supressão de mensagens de console em ambiente de produção.
 
 ### Corrigido (Patch - Abril 2026)
+- **Ícones PWA**: Adição dos ícones 192px e 512px faltantes para conformidade com o manifest.
+- **Roteamento de Subdiretório**: Correção de links rígidos para usar `BASE_URL` do Vite.
+- **Segurança**: Restrição de acesso a documentos privados no leitor compartilhado.
+- **Estabilidade**: Proteção contra falhas no `localStorage` em navegadores com restrições de privacidade.
 - **Placeholders de Imagem**: Substituição de links `via.placeholder.com` (depreciados) por `placehold.co` no guia de Markdown e README.
 - **Limpeza de Repositório**: Purgação total de arquivos residuais e diretórios não utilizados.
 

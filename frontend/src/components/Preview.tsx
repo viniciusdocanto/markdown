@@ -28,9 +28,9 @@ hljs.registerLanguage('markdown', markdownLang);
 
 // Configurar marked uma única vez fora do componente
 const renderer = new marked.Renderer();
-renderer.heading = (text, level) => {
+renderer.heading = (text: string, depth: number) => {
   const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
-  return `<h${level} id="${escapedText}">${text}</h${level}>`;
+  return `<h${depth} id="${escapedText}">${text}</h${depth}>`;
 };
 
 marked.use({
