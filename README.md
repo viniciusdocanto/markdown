@@ -12,7 +12,7 @@ Uma aplicação moderna e performática para edição de Markdown com preview em
 - **Compartilhamento Único**: Gere links públicos para visualização de documentos.
 - **Exportação para PDF**: Gere documentos PDF formatados diretamente do navegador.
 - **Download Markdown**: Baixe diretamente o arquivo `.md` tanto do editor quanto da página de leitura de documentos compartilhados.
-- **Design Adaptativo**: Suporte completo a Modo Escuro e interfaces responsivas.
+- **Suporte PWA**: Aplicativo totalmente instalável com suporte offline básico e carregamento instantâneo.
 - **Histórico Local**: Proteção extra com cache das últimas 5 versões editadas.
 
 ## 🛠️ Tecnologias
