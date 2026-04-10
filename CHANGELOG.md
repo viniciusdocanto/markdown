@@ -12,7 +12,8 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 - **Segurança Blindada**: Implementação de Content Security Policy (CSP), Referrer Policy e X-Content-Type-Options.
 - **Resiliência de Dados**: Tratamento de erros (`try/catch`) no acesso ao `localStorage`.
 - **Higiene de Logs**: Supressão de mensagens de console em ambiente de produção.
-- **UI Finalizada**: Adição de rodapé social, licença MIT e guia interativo de Markdown.
+### Corrigido (Patch - Abril 2026)
+- **Placeholders de Imagem**: Substituição de links `via.placeholder.com` (depreciados) por `placehold.co` no guia de Markdown e README.
 - **Limpeza de Repositório**: Purgação total de arquivos residuais e diretórios não utilizados.
 
 ## [0.2.0] - 2026-03-25
