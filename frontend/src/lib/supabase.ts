@@ -17,38 +17,19 @@ export interface Document {
 }
 
 export const saveDocument = async (doc: Partial<Document>) => {
-  // Check if document exists first
-  const { data: existing } = await supabase
-    .from('documents')
-    .select('document_id')
-    .eq('document_id', doc.document_id)
-    .maybeSingle();
+  const { data, error } = await supabase.rpc('save_document', {
+    p_document_id: doc.document_id,
+    p_title: doc.title,
+    p_content: doc.content,
+    p_is_public: doc.is_public ?? true,
+    p_share_token: doc.share_token
+  });
 
-  if (existing) {
-    const { data, error } = await supabase
-      .from('documents')
-      .update({
-        ...doc,
-        updated_at: new Date().toISOString(),
-      })
-      .eq('document_id', doc.document_id)
-      .select()
-      .single();
-    if (error) throw error;
-    return data;
-  } else {
-    const { data, error } = await supabase
-      .from('documents')
-      .insert({
-        ...doc,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      })
-      .select()
-      .single();
-    if (error) throw error;
-    return data;
+  if (error) {
+    throw new Error(error.message || 'Erro ao salvar o documento');
   }
+  
+  return data;
 };
 
 export const getDocument = async (documentId: string) => {
@@ -59,7 +40,7 @@ export const getDocument = async (documentId: string) => {
 
   const { data, error } = await supabase
     .from('documents')
-    .select('*')
+    .select('id, document_id, title, content, is_public, created_at, updated_at')
     .eq('document_id', documentId)
     .maybeSingle();
 

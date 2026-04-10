@@ -1,5 +1,6 @@
 import { useMemo, useCallback, memo } from 'react';
 import { marked } from 'marked';
+import { markedHighlight } from 'marked-highlight';
 import DOMPurify from 'dompurify';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
@@ -11,8 +12,7 @@ import bash from 'highlight.js/lib/languages/bash';
 import python from 'highlight.js/lib/languages/python';
 import markdownLang from 'highlight.js/lib/languages/markdown';
 import { ArrowUp } from 'lucide-react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { cn } from '../lib/utils';
 import 'highlight.js/styles/github-dark.css';
 
 // Registrar apenas linguagens necessárias para reduzir bundle size
@@ -26,10 +26,6 @@ hljs.registerLanguage('bash', bash);
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdownLang);
 
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
 // Configurar marked uma única vez fora do componente
 const renderer = new marked.Renderer();
 renderer.heading = (text, level) => {
@@ -37,17 +33,21 @@ renderer.heading = (text, level) => {
   return `<h${level} id="${escapedText}">${text}</h${level}>`;
 };
 
-marked.setOptions({
+marked.use({
   renderer,
-  highlight: (code: string, lang: string) => {
+  breaks: true,
+  gfm: true
+});
+
+marked.use(markedHighlight({
+  langPrefix: 'hljs language-',
+  highlight(code, lang) {
     if (lang && hljs.getLanguage(lang)) {
       return hljs.highlight(code, { language: lang }).value;
     }
     return hljs.highlightAuto(code).value;
-  },
-  breaks: true,
-  gfm: true
-} as any);
+  }
+}));
 
 interface PreviewProps {
   markdown: string;
@@ -103,7 +103,7 @@ const Preview = memo(function Preview({ markdown, onScroll, previewRef, fullPage
       </div>
       <button
         onClick={scrollToTop}
-        className="fixed bottom-6 right-6 p-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-full shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all text-slate-700 hover:text-indigo-500 z-[60]"
+        className="fixed bottom-24 right-6 p-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-full shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all text-slate-700 hover:text-indigo-500 z-[60]"
         title="Scroll para o topo"
       >
         <ArrowUp size={18} />

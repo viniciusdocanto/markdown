@@ -11,6 +11,7 @@ Uma aplicação moderna e performática para edição de Markdown com preview em
 - **Persistência em Nuvem (Serverless)**: Salvamento automático via Supabase, sem necessidade de backend próprio.
 - **Compartilhamento Único**: Gere links públicos para visualização de documentos.
 - **Exportação para PDF**: Gere documentos PDF formatados diretamente do navegador.
+- **Download Markdown**: Baixe diretamente o arquivo `.md` tanto do editor quanto da página de leitura de documentos compartilhados.
 - **Design Adaptativo**: Suporte completo a Modo Escuro e interfaces responsivas.
 - **Histórico Local**: Proteção extra com cache das últimas 5 versões editadas.
 
@@ -44,11 +45,7 @@ Uma aplicação moderna e performática para edição de Markdown com preview em
 4.  **Configure o Banco**:
     Execute o conteúdo de `supabase_schema.sql` no SQL Editor do seu projeto Supabase.
 
-5. - **UI/UX**: Modo Dark, botões "Scroll to Top", notificações Toast e cabeçalho premium.
-- **Identidade**: Adicionado rodapé com links sociais e informações de copyright.
-- **Legal**: Adicionada licença MIT.
-- **CI/CD**: Workflow de GitHub Actions para deploy via FTP.
-    **Inicie o desenvolvimento**:
+5. **Inicie o desenvolvimento**:
     ```bash
     npm run dev
     ```

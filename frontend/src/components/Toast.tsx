@@ -1,11 +1,6 @@
 import { useEffect } from 'react';
-import { X, CheckCircle, AlertCircle, ArrowUp } from 'lucide-react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+import { X, CheckCircle, AlertCircle, Info } from 'lucide-react';
+import { cn } from '../lib/utils';
 
 export type ToastType = 'success' | 'error' | 'info';
 
@@ -31,7 +26,7 @@ export default function Toast({ message, type = 'success', onClose }: ToastProps
       )}>
         {type === 'success' && <CheckCircle size={20} />}
         {type === 'error' && <AlertCircle size={20} />}
-        {type === 'info' && <AlertCircle size={20} className="rotate-180" />}
+        {type === 'info' && <Info size={20} />}
         
         <p className="flex-1 text-sm font-medium">{message}</p>
         

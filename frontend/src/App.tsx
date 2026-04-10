@@ -17,14 +17,9 @@ const MarkdownGuide = lazy(() => import('./components/MarkdownGuide'));
 const Toast = lazy(() => import('./components/Toast'));
 import type { ToastType } from './components/Toast';
 import { FileText, Download } from 'lucide-react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { cn } from './lib/utils';
 import { saveDocument, getDocument } from './lib/supabase';
 import { nanoid } from 'nanoid';
-
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
 
 const DEFAULT_MARKDOWN = `# Bem-vindo ao Markdown Premium
 
@@ -65,6 +60,7 @@ function MainEditor() {
   const [isLoading, setIsLoading] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
   const [documentId, setDocumentId] = useState(() => localStorage.getItem('document-id') || nanoid(10));
+  const [shareToken, setShareToken] = useState(() => localStorage.getItem('share-token') || nanoid(12));
 
   const containerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<HTMLTextAreaElement>(null);
@@ -73,7 +69,8 @@ function MainEditor() {
 
   useEffect(() => {
     localStorage.setItem('document-id', documentId);
-  }, [documentId]);
+    localStorage.setItem('share-token', shareToken);
+  }, [documentId, shareToken]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -140,6 +137,7 @@ function MainEditor() {
     if (confirm('Deseja criar um novo documento?')) {
       setMarkdown('');
       setDocumentId(nanoid(10));
+      setShareToken(nanoid(12));
     }
   };
 
@@ -204,7 +202,6 @@ function MainEditor() {
       URL.revokeObjectURL(url);
       showToast('Markdown exportado!', 'success');
     } catch (error) {
-      console.error(error);
       showToast('Erro ao exportar Markdown.', 'error');
     }
   };
@@ -222,13 +219,12 @@ function MainEditor() {
         title: 'Documento Compartilhado',
         content: markdown,
         is_public: true,
-        share_token: nanoid(12)
+        share_token: shareToken
       });
       const shareUrl = `${window.location.origin}${import.meta.env.BASE_URL}view/${documentId}`.replace(/([^:]\/)\/+/g, "$1");
       await navigator.clipboard.writeText(shareUrl);
       showToast('Link de compartilhamento copiado!', 'success');
     } catch (error) {
-      console.error(error);
       showToast('Erro ao salvar no Supabase. Verifique suas chaves!', 'error');
     } finally {
       setIsLoading(false);
@@ -293,7 +289,6 @@ function ViewOnly() {
         const data = await getDocument(id);
         setContent(data.content);
       } catch (err) {
-        console.error(err);
         setError(true);
       } finally {
         setLoading(false);
