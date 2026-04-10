@@ -1,5 +1,5 @@
 import ThemeToggle from './ThemeToggle';
-import { FileText, FileDown, Download, Copy, Share2, Plus, Link, Link2Off, Info } from 'lucide-react';
+import { FileText, FileDown, Download, Copy, Share2, Plus, Link, Link2Off, Info, LayoutTemplate } from 'lucide-react';
 import { clsx } from 'clsx';
 
 interface HeaderProps {
@@ -8,6 +8,7 @@ interface HeaderProps {
   onExportMarkdown: () => void;
   onCopyMarkdown: () => void;
   onShowGuide: () => void;
+  onShowTemplates: () => void;
   onShare: () => void;
   syncScroll: boolean;
   onToggleSyncScroll: () => void;
@@ -19,6 +20,7 @@ export default function Header({
   onExportMarkdown,
   onCopyMarkdown,
   onShowGuide,
+  onShowTemplates,
   onShare,
   syncScroll,
   onToggleSyncScroll,
@@ -41,6 +43,14 @@ export default function Header({
         >
           <Plus size={16} />
           Novo Documento
+        </button>
+
+        <button
+          onClick={onShowTemplates}
+          className="flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors font-medium text-sm"
+        >
+          <LayoutTemplate size={16} />
+          Templates
         </button>
 
         <div className="h-8 w-[1px] bg-slate-200 dark:bg-slate-800 mx-2" />

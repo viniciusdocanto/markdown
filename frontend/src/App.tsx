@@ -14,6 +14,7 @@ import Preview from './components/Preview';
 import ThemeToggle from './components/ThemeToggle';
 import Footer from './components/Footer';
 const MarkdownGuide = lazy(() => import('./components/MarkdownGuide'));
+const TemplatesDialog = lazy(() => import('./components/TemplatesDialog'));
 const Toast = lazy(() => import('./components/Toast'));
 import type { ToastType } from './components/Toast';
 import { FileText, Download } from 'lucide-react';
@@ -59,6 +60,7 @@ function MainEditor() {
   const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
+  const [showTemplates, setShowTemplates] = useState(false);
   const [documentId, setDocumentId] = useState(() => localStorage.getItem('document-id') || nanoid(10));
   const [shareToken, setShareToken] = useState(() => localStorage.getItem('share-token') || nanoid(12));
 
@@ -231,12 +233,23 @@ function MainEditor() {
     }
   };
 
+  const handleSelectTemplate = (content: string) => {
+    setMarkdown(prev => prev + (prev.trim() ? '\n\n' : '') + content);
+    showToast('Template inserido!', 'success');
+  };
+
+  // Cálculo de estatísticas
+  const chars = markdown.length;
+  const words = markdown.trim() ? markdown.trim().split(/\s+/).length : 0;
+  const readTime = Math.ceil(words / 200) || 0;
+
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
       <Header
         onNew={handleNew}
         onCopyMarkdown={handleCopyMarkdown}
         onShowGuide={() => setShowGuide(true)}
+        onShowTemplates={() => setShowTemplates(true)}
         onExportPDF={handleExportPDF}
         onExportMarkdown={handleExportMarkdown}
         onShare={handleShare}
@@ -252,9 +265,14 @@ function MainEditor() {
           <Preview markdown={markdown} onScroll={handlePreviewScroll} previewRef={previewRef} />
         </div>
       </main>
-      <Footer />
+      <Footer words={words} chars={chars} readTime={readTime} />
       <Suspense fallback={null}>
         <MarkdownGuide isOpen={showGuide} onClose={() => setShowGuide(false)} />
+        <TemplatesDialog 
+          isOpen={showTemplates} 
+          onClose={() => setShowTemplates(false)} 
+          onSelect={handleSelectTemplate} 
+        />
         {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
       </Suspense>
       {isLoading && <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[100] flex items-center justify-center text-white font-medium">Salvando...</div>}
@@ -334,7 +352,11 @@ function ViewOnly() {
             <Preview markdown={content} previewRef={previewRef} fullPageScroll={true} />
           </div>
         </div>
-        <Footer />
+        <Footer 
+          words={content.trim() ? content.trim().split(/\s+/).length : 0} 
+          chars={content.length} 
+          readTime={Math.ceil((content.trim() ? content.trim().split(/\s+/).length : 0) / 200)} 
+        />
       </div>
     </Suspense>
   );
