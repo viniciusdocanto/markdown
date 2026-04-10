@@ -25,8 +25,8 @@ const GUIDE_ITEMS: GuideItem[] = [
   },
   {
     title: 'Links e Imagens',
-    markdown: '[Google](https://google.com)\n![Alt text](https://via.placeholder.com/50)',
-    preview: '<a href="#" class="text-indigo-600">Google</a><br><img src="https://via.placeholder.com/50" alt="Alt text" class="rounded mt-2" />'
+    markdown: '[Google](https://google.com)\n![Alt text](https://placehold.co/50)',
+    preview: '<a href="#" class="text-indigo-600">Google</a><br><img src="https://placehold.co/50" alt="Alt text" class="rounded mt-2" />'
   },
   {
     title: 'Código',
