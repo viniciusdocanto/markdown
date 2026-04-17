@@ -4,7 +4,13 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
 ## ✨ Versão 1.1.0 (Diamond) - Abril 2026
 
-### Adicionado
+### Corrigido (Patch - Abril 2026)
+- **Supabase Self-Hosted**: Migração do cliente Supabase para instancia propria em `markdown.viniciusdocanto.com.br`.
+- **CSP**: Content Security Policy atualizado para liberar conexoes ao dominio self-hosted.
+- **RPC Params**: Correcao nos nomes dos parametros do RPC `save_document` (removido prefixo `p_` para compatibilidade com a funcao no servidor).
+- **Preconnect**: Hints de `preconnect` e `dns-prefetch` atualizados para o novo dominio.
+
+### Adicionado (Patch - Abril 2026)
 - **Suporte PWA**: Aplicativo agora é instalável e possui suporte offline básico via `vite-plugin-pwa`.
 - **Sistema de Templates**: Modal com modelos prontos (README, Todo, Reunião, Docs) para criação rápida.
 - **Métricas em Tempo Real**: Novo layout de rodapé exibindo contagem de palavras, caracteres e tempo de leitura.
