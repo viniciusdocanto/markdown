@@ -2,6 +2,16 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## ✨ Versão 1.1.2 - Abril 2026
+
+### Alterado
+- **Ambiente**: Atualização do requisito mínimo do Node.js para `>= 20.0.0` (Ambiente local atualizado para v22.21.0).
+- **Core**: Atualização do motor de build para Vite 6.
+- **PWA**: Atualização do `vite-plugin-pwa` para v1.2.0 para compatibilidade com Vite 6.
+
+### Segurança
+- **Dependências**: Correção de vulnerabilidades críticas no `serialize-javascript` através de `overrides` no `package.json`.
+
 ## ✨ Versão 1.1.1 - Abril 2026
 
 ### Corrigido

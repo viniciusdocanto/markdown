@@ -1,7 +1,10 @@
 {
   "name": "markdown",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Markdown Editor - Serverless",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "keywords": [],
   "author": "Vinicius do Canto <vinicius@docanto.net>",
   "license": "ISC",
