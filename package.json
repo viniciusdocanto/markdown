@@ -1,7 +1,11 @@
 {
   "name": "markdown",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Markdown Editor - Serverless",
+  "keywords": [],
+  "author": "Vinicius do Canto <vinicius@docanto.net>",
+  "license": "ISC",
+  "type": "commonjs",
   "main": "index.js",
   "directories": {
     "doc": "docs"
@@ -12,9 +16,5 @@
     "install:frontend": "cd frontend && npm install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "Vinicius do Canto <vinicius@docanto.net>",
-  "license": "ISC",
-  "type": "commonjs",
   "devDependencies": {}
 }
