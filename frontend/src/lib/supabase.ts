@@ -18,17 +18,16 @@ export interface Document {
 
 export const saveDocument = async (doc: Partial<Document>) => {
   const { data, error } = await supabase.rpc('save_document', {
-    p_document_id: doc.document_id,
-    p_title: doc.title,
-    p_content: doc.content,
-    p_is_public: doc.is_public ?? true,
-    p_share_token: doc.share_token
+    document_id: doc.document_id,
+    title: doc.title,
+    content: doc.content,
+    share_token: doc.share_token
   });
 
   if (error) {
     throw new Error(error.message || 'Erro ao salvar o documento');
   }
-  
+
   return data;
 };
 

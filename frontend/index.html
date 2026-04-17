@@ -9,11 +9,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://knhzljjzgjxsczjxscjx.supabase.co" crossorigin>
-  <link rel="dns-prefetch" href="https://knhzljjzgjxsczjxscjx.supabase.co">
+  <link rel="preconnect" href="https://markdown.viniciusdocanto.com.br" crossorigin>
+  <link rel="dns-prefetch" href="https://markdown.viniciusdocanto.com.br">
 
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co;">
+    content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co https://markdown.viniciusdocanto.com.br;">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <title>Markdown | Editor & Preview em Tempo Real</title>
@@ -29,16 +29,62 @@
         height: 100vh;
         background: #f8fafc;
       }
-      .dark .initial-loading { background: #0f172a; }
-      .skeleton-header { height: 64px; border-bottom: 1px solid #e2e8f0; background: white; }
-      .dark .skeleton-header { background: #0f172a; border-color: #1e293b; }
-      .skeleton-main { flex: 1; display: flex; }
-      .skeleton-editor { flex: 1; border-right: 1px solid #e2e8f0; background: #fdfdfd; }
-      .dark .skeleton-editor { background: #0f172a; border-color: #1e293b; }
-      .skeleton-preview { flex: 1; background: white; }
-      .dark .skeleton-preview { background: #0f172a; }
-      @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-      .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+      .dark .initial-loading {
+        background: #0f172a;
+      }
+
+      .skeleton-header {
+        height: 64px;
+        border-bottom: 1px solid #e2e8f0;
+        background: white;
+      }
+
+      .dark .skeleton-header {
+        background: #0f172a;
+        border-color: #1e293b;
+      }
+
+      .skeleton-main {
+        flex: 1;
+        display: flex;
+      }
+
+      .skeleton-editor {
+        flex: 1;
+        border-right: 1px solid #e2e8f0;
+        background: #fdfdfd;
+      }
+
+      .dark .skeleton-editor {
+        background: #0f172a;
+        border-color: #1e293b;
+      }
+
+      .skeleton-preview {
+        flex: 1;
+        background: white;
+      }
+
+      .dark .skeleton-preview {
+        background: #0f172a;
+      }
+
+      @keyframes pulse {
+
+        0%,
+        100% {
+          opacity: 1;
+        }
+
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      .animate-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
     </style>
     <div class="initial-loading animate-pulse">
       <div class="skeleton-header"></div>
