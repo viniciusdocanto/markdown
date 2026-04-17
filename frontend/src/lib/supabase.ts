@@ -17,18 +17,61 @@ export interface Document {
 }
 
 export const saveDocument = async (doc: Partial<Document>) => {
-  const { data, error } = await supabase.rpc('save_document', {
-    document_id: doc.document_id,
-    title: doc.title,
-    content: doc.content,
-    share_token: doc.share_token
-  });
+  const now = new Date().toISOString();
 
-  if (error) {
-    throw new Error(error.message || 'Erro ao salvar o documento');
+  // Verifica se o documento já existe
+  const { data: existingDoc } = await supabase
+    .from('documents')
+    .select('id')
+    .eq('document_id', doc.document_id)
+    .maybeSingle();
+
+  if (existingDoc) {
+    const { data, error } = await supabase
+      .from('documents')
+      .update({
+        title: doc.title,
+        content: doc.content,
+        is_public: doc.is_public ?? true,
+        share_token: doc.share_token,
+        updated_at: now
+      })
+      .eq('document_id', doc.document_id)
+      .select()
+      .single();
+
+    if (error) throw new Error(error.message || 'Erro ao atualizar o documento');
+    return data;
+  } else {
+    // Fallback seguro de UUID caso db não gere
+    const generateUUID = () => {
+      if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+        return crypto.randomUUID();
+      }
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    };
+
+    const { data, error } = await supabase
+      .from('documents')
+      .insert({
+        id: generateUUID(),
+        document_id: doc.document_id,
+        title: doc.title,
+        content: doc.content,
+        is_public: doc.is_public ?? true,
+        share_token: doc.share_token,
+        created_at: now,
+        updated_at: now
+      })
+      .select()
+      .single();
+
+    if (error) throw new Error(error.message || 'Erro ao criar o documento');
+    return data;
   }
-
-  return data;
 };
 
 export const getDocument = async (documentId: string) => {
