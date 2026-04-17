@@ -1,6 +1,6 @@
-{
-  "name": "markdown-editor",
+  "name": "markdown",
   "private": true,
+  "description": "Markdown Editor - Serverless",
   "version": "1.1.0",
   "author": "Vinicius do Canto <vinicius@docanto.net>",
   "type": "module",
