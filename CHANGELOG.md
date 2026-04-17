@@ -8,6 +8,7 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 - **Ambiente**: Atualização do requisito mínimo do Node.js para `>= 20.0.0` (Ambiente local atualizado para v22.21.0).
 - **Core**: Atualização do motor de build para Vite 6.
 - **PWA**: Atualização do `vite-plugin-pwa` para v1.2.0 para compatibilidade com Vite 6.
+- **CI/CD**: Sincronização da versão do Node.js para v22 no GitHub Actions para resolver erro de rede (`crypto is not defined`) causado por dependências atualizadas.
 
 ### Segurança
 - **Dependências**: Correção de vulnerabilidades críticas no `serialize-javascript` através de `overrides` no `package.json`.
@@ -15,7 +16,7 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 ## ✨ Versão 1.1.1 - Abril 2026
 
 ### Corrigido
-- **Supabase Insert**: Correção na criação de novos documentos. Removida a dependência do RPC `save_document` que estava falhando em gerar `id` e os timestamps (`created_at`, `updated_at`). Agora o frontend injeta explicitly o UUID e as datas usando o método `.insert()` padrão da tabela `documents`.
+- **Supabase Insert**: Correção na criação de novos documentos. Removida a dependência do RPC `save_document` que estava falhando em gerar `id` e os timestamps (`created_at`, `updated_at`). Agora o frontend injeta explicitamente o UUID e as datas usando o método `.insert()` padrão da tabela `documents`.
 
 ## ✨ Versão 1.1.0 (Diamond) - Abril 2026
 
