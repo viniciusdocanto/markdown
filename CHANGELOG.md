@@ -2,6 +2,11 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## ✨ Versão 1.1.3 - Abril 2026
+
+### Corrigido
+- **Supabase Context**: Ajuste no nome da tabela de `documents` para `document` para alinhar com o esquema do banco de dados self-hosted, resolvendo o erro 404 nas requisições.
+
 ## ✨ Versão 1.1.2 - Abril 2026
 
 ### Alterado
@@ -16,7 +21,7 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 ## ✨ Versão 1.1.1 - Abril 2026
 
 ### Corrigido
-- **Supabase Insert**: Correção na criação de novos documentos. Removida a dependência do RPC `save_document` que estava falhando em gerar `id` e os timestamps (`created_at`, `updated_at`). Agora o frontend injeta explicitamente o UUID e as datas usando o método `.insert()` padrão da tabela `documents`.
+- **Supabase Insert**: Correção na criação de novos documentos. Removida a dependência do RPC `save_document` que estava falhando em gerar `id` e os timestamps (`created_at`, `updated_at`). Agora o frontend injeta explicitamente o UUID e as datas usando o método `.insert()` padrão da tabela `document`.
 
 ## ✨ Versão 1.1.0 (Diamond) - Abril 2026
 

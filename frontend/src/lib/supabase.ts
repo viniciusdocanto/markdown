@@ -21,14 +21,14 @@ export const saveDocument = async (doc: Partial<Document>) => {
 
   // Verifica se o documento já existe
   const { data: existingDoc } = await supabase
-    .from('documents')
+    .from('document')
     .select('id')
     .eq('document_id', doc.document_id)
     .maybeSingle();
 
   if (existingDoc) {
     const { data, error } = await supabase
-      .from('documents')
+      .from('document')
       .update({
         title: doc.title,
         content: doc.content,
@@ -48,14 +48,14 @@ export const saveDocument = async (doc: Partial<Document>) => {
       if (typeof crypto !== 'undefined' && crypto.randomUUID) {
         return crypto.randomUUID();
       }
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
         const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
       });
     };
 
     const { data, error } = await supabase
-      .from('documents')
+      .from('document')
       .insert({
         id: generateUUID(),
         document_id: doc.document_id,
@@ -81,7 +81,7 @@ export const getDocument = async (documentId: string) => {
   }
 
   const { data, error } = await supabase
-    .from('documents')
+    .from('document')
     .select('id, document_id, title, content, is_public, created_at, updated_at')
     .eq('document_id', documentId)
     .eq('is_public', true)
