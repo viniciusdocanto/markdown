@@ -5,7 +5,7 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 ## ✨ Versão 1.2.0 - Abril 2026
 
 ### Adicionado
-- **Área Administrativa**: Implementação de sistema de gestão de documentos na rota `/mestre`.
+- **Área Administrativa**: Implementação de sistema de gestão de documentos na rota `/admin`.
 - **Autenticação Supabase**: Proteção do acesso administrativo via Supabase Auth (Email/Senha).
 - **Dashboard Mestre**: Interface para listagem, busca, edição e exclusão de todos os markdowns do banco de dados.
 - **Edição Direta**: Integração entre o dashboard e o editor principal permitindo abrir documentos existentes pelo `document_id`.

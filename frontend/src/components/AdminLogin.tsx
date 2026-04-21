@@ -24,7 +24,7 @@ export default function AdminLogin() {
            setError('Falha no login: ' + error.message);
       setLoading(false);
     } else {
-      navigate('/mestre');
+      navigate('/admin');
     }
   };
 

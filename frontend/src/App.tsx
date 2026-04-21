@@ -409,7 +409,7 @@ export default function App() {
         <Route path="/edit/:id" element={<MainEditor />} />
         <Route path="/view/:id" element={<ViewOnly />} />
         <Route path="/login" element={<Suspense fallback={null}><AdminLogin /></Suspense>} />
-        <Route path="/mestre" element={<Suspense fallback={null}><AdminDashboard /></Suspense>} />
+        <Route path="/admin" element={<Suspense fallback={null}><AdminDashboard /></Suspense>} />
       </Routes>
     </BrowserRouter>
   );
