@@ -9,9 +9,9 @@ export interface Document {
   id?: string;
   document_id: string;
   title: string;
-  content: string;
+  content?: string;
   is_public: boolean;
-  share_token: string;
+  share_token?: string;
   created_at?: string;
   updated_at?: string;
 }
@@ -92,3 +92,35 @@ export const getDocument = async (documentId: string) => {
   if (!data) throw new Error('Documento não encontrado');
   return data;
 };
+
+export const getAllDocuments = async () => {
+  const { data, error } = await supabase
+    .from('document')
+    .select('id, document_id, title, is_public, share_token, created_at, updated_at')
+    .order('updated_at', { ascending: false });
+
+  if (error) throw error;
+  return data || [];
+};
+
+export const deleteDocument = async (documentId: string) => {
+  const { error } = await supabase
+    .from('document')
+    .delete()
+    .eq('document_id', documentId);
+
+  if (error) throw error;
+};
+
+export const getDocumentForAdmin = async (documentId: string) => {
+  const { data, error } = await supabase
+    .from('document')
+    .select('id, document_id, title, content, is_public, share_token, created_at, updated_at')
+    .eq('document_id', documentId)
+    .maybeSingle();
+
+  if (error) throw error;
+  if (!data) throw new Error('Documento não encontrado');
+  return data;
+};
+

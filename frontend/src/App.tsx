@@ -19,8 +19,11 @@ const Toast = lazy(() => import('./components/Toast'));
 import type { ToastType } from './components/Toast';
 import { FileText, Download } from 'lucide-react';
 import { cn } from './lib/utils';
-import { saveDocument, getDocument } from './lib/supabase';
+import { saveDocument, getDocument, getDocumentForAdmin } from './lib/supabase';
 import { nanoid } from 'nanoid';
+
+const AdminLogin = lazy(() => import('./components/AdminLogin'));
+const AdminDashboard = lazy(() => import('./components/AdminDashboard'));
 
 const DEFAULT_MARKDOWN = `# Bem-vindo ao Markdown Premium
 
@@ -84,11 +87,30 @@ function MainEditor() {
   const editorRef = useRef<HTMLTextAreaElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const isScrolling = useRef(false);
+  const { id } = useParams();
 
   useEffect(() => {
     localStorage.setItem('document-id', documentId);
     localStorage.setItem('share-token', shareToken);
   }, [documentId, shareToken]);
+
+  useEffect(() => {
+    async function load() {
+      if (!id) return;
+      try {
+        setIsLoading(true);
+        const data = await getDocumentForAdmin(id);
+        setMarkdown(data.content);
+        setDocumentId(data.document_id);
+        setShareToken(data.share_token || nanoid(12));
+      } catch (err) {
+        showToast('Erro ao carregar documento ou sem permissão.', 'error');
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    load();
+  }, [id]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -384,7 +406,10 @@ export default function App() {
     <BrowserRouter basename={basename}>
       <Routes>
         <Route path="/" element={<MainEditor />} />
+        <Route path="/edit/:id" element={<MainEditor />} />
         <Route path="/view/:id" element={<ViewOnly />} />
+        <Route path="/login" element={<Suspense fallback={null}><AdminLogin /></Suspense>} />
+        <Route path="/mestre" element={<Suspense fallback={null}><AdminDashboard /></Suspense>} />
       </Routes>
     </BrowserRouter>
   );
