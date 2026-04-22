@@ -117,13 +117,22 @@ export default function FileExplorer({
           <div className="space-y-4">
             <div className="flex items-center justify-between text-xs text-slate-500 uppercase tracking-wider font-semibold">
               <span className="truncate max-w-[150px]">{directoryHandle.name}</span>
-              <button 
-                onClick={() => loadFiles(directoryHandle)}
-                className="hover:text-indigo-600 transition-colors"
-                title="Atualizar lista"
-              >
-                <RefreshCw size={14} className={cn(loading && "animate-spin")} />
-              </button>
+              <div className="flex items-center gap-2">
+                <button 
+                  onClick={handleOpenDirectory}
+                  className="hover:text-indigo-600 transition-colors"
+                  title="Trocar pasta"
+                >
+                  <FolderOpen size={14} />
+                </button>
+                <button 
+                  onClick={() => loadFiles(directoryHandle)}
+                  className="hover:text-indigo-600 transition-colors"
+                  title="Atualizar lista"
+                >
+                  <RefreshCw size={14} className={cn(loading && "animate-spin")} />
+                </button>
+              </div>
             </div>
 
             <div className="space-y-1">
