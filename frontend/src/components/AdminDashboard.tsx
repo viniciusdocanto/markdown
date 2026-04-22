@@ -15,6 +15,7 @@ import {
   Globe,
   AlertCircle
 } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 
 export default function AdminDashboard() {
   const [documents, setDocuments] = useState<Document[]>([]);
@@ -102,6 +103,9 @@ export default function AdminDashboard() {
                 <Plus size={18} />
                 <span className="hidden sm:inline">Novo Markdown</span>
               </button>
+              
+              <ThemeToggle />
+
               <button
                 onClick={handleLogout}
                 className="flex items-center gap-2 text-sm font-medium text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/30 px-3 py-1.5 rounded-lg transition-colors"

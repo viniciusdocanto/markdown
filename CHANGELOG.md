@@ -9,6 +9,11 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 - **Autenticação Supabase**: Proteção do acesso administrativo via Supabase Auth (Email/Senha).
 - **Dashboard Mestre**: Interface para listagem, busca, edição e exclusão de todos os markdowns do banco de dados.
 - **Edição Direta**: Integração entre o dashboard e o editor principal permitindo abrir documentos existentes pelo `document_id`.
+- **Modo Escuro no Admin**: Adição de suporte a temas claro/escuro no Painel Mestre para consistência visual.
+
+### Corrigido
+- **Content Security Policy (CSP)**: Ajustada para permitir scripts e conexões da Cloudflare Insights.
+- **Links de Visualização**: Correção na geração de URLs no admin para considerar o `BASE_URL`, resolvendo links quebrados em subpastas.
 
 ## ✨ Versão 1.1.3 - Abril 2026
 
