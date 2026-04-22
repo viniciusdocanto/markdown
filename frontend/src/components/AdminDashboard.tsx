@@ -192,7 +192,11 @@ export default function AdminDashboard() {
                       <td className="px-6 py-4 text-right">
                         <div className="flex items-center justify-end gap-2">
                           <button
-                            onClick={() => window.open(`/view/${doc.document_id}`, '_blank')}
+                            onClick={() => {
+                              const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+                              const viewUrl = `${window.location.origin}${baseUrl}view/${doc.document_id}`.replace(/([^:]\/)\/+/g, "$1");
+                              window.open(viewUrl, '_blank');
+                            }}
                             title="Ver página pública"
                             className="p-2 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-white dark:hover:bg-slate-800 rounded-lg transition-all"
                           >
