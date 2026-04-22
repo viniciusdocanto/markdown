@@ -7,7 +7,8 @@ import {
   Save, 
   RefreshCw,
   X,
-  HardDrive
+  HardDrive,
+  Plus
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
@@ -38,6 +39,8 @@ export default function FileExplorer({
   const [directoryHandle, setDirectoryHandle] = useState<FileSystemDirectoryHandle | null>(null);
   const [files, setFiles] = useState<FileItem[]>([]);
   const [loading, setLoading] = useState(false);
+  const [isCreating, setIsCreating] = useState(false);
+  const [newFileName, setNewFileName] = useState('');
 
   const loadFiles = useCallback(async (handle: FileSystemDirectoryHandle) => {
     try {
@@ -75,6 +78,33 @@ export default function FileExplorer({
       onFileSelect(content, fileHandle);
     } catch (error) {
       console.error('Erro ao ler arquivo:', error);
+    }
+  };
+
+  const handleCreateFile = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!directoryHandle || !newFileName.trim()) return;
+
+    try {
+      setLoading(true);
+      let name = newFileName.trim();
+      if (!name.endsWith('.md')) name += '.md';
+
+      // Cria o arquivo no disco
+      const fileHandle = await directoryHandle.getFileHandle(name, { create: true });
+      
+      // Limpa o estado e recarrega a lista
+      setNewFileName('');
+      setIsCreating(false);
+      await loadFiles(directoryHandle);
+      
+      // Abre o arquivo recém-criado
+      await handleFileClick(fileHandle);
+    } catch (error) {
+      console.error('Erro ao criar arquivo:', error);
+      alert('Erro ao criar arquivo. Verifique as permissões da pasta.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -119,6 +149,13 @@ export default function FileExplorer({
               <span className="truncate max-w-[150px]">{directoryHandle.name}</span>
               <div className="flex items-center gap-2">
                 <button 
+                  onClick={() => setIsCreating(true)}
+                  className="hover:text-indigo-600 transition-colors"
+                  title="Novo arquivo"
+                >
+                  <Plus size={14} />
+                </button>
+                <button 
                   onClick={handleOpenDirectory}
                   className="hover:text-indigo-600 transition-colors"
                   title="Trocar pasta"
@@ -134,6 +171,40 @@ export default function FileExplorer({
                 </button>
               </div>
             </div>
+
+            {isCreating && (
+              <form onSubmit={handleCreateFile} className="flex items-center gap-2 animate-in fade-in slide-in-from-top-1">
+                <div className="relative flex-1">
+                  <input
+                    autoFocus
+                    type="text"
+                    value={newFileName}
+                    onChange={(e) => setNewFileName(e.target.value)}
+                    placeholder="nome-do-arquivo.md"
+                    className="w-full text-xs py-1.5 pl-2 pr-6 border border-indigo-300 dark:border-indigo-700 rounded bg-white dark:bg-slate-800 outline-none focus:ring-1 focus:ring-indigo-500"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Escape') {
+                        setIsCreating(false);
+                        setNewFileName('');
+                      }
+                    }}
+                  />
+                  <button 
+                    type="button"
+                    onClick={() => setIsCreating(false)}
+                    className="absolute right-1 top-1/2 -translate-y-1/2 text-slate-400 hover:text-red-500"
+                  >
+                    <X size={12} />
+                  </button>
+                </div>
+                <button 
+                  type="submit"
+                  className="p-1.5 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors"
+                >
+                  <Plus size={12} />
+                </button>
+              </form>
+            )}
 
             <div className="space-y-1">
               {files.map((file) => (
