@@ -11,6 +11,7 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 - **Edição Direta**: Integração entre o dashboard e o editor principal permitindo abrir documentos existentes pelo `document_id`.
 - **Modo Escuro no Admin**: Adição de suporte a temas claro/escuro no Painel Mestre para consistência visual.
 - **Atalhos de Teclado**: Implementação de atalhos de produtividade (`Ctrl+B`, `Ctrl+I`, `Ctrl+K`) no editor.
+- **Explorador de Arquivos Local**: Nova barra lateral para gerenciar arquivos `.md` diretamente do disco local usando a File System Access API, com suporte a salvamento manual e automático.
 
 ### Corrigido
 - **Content Security Policy (CSP)**: Ajustada para permitir scripts e conexões da Cloudflare Insights.

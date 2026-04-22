@@ -1,5 +1,17 @@
 import ThemeToggle from './ThemeToggle';
-import { FileText, FileDown, Download, Copy, Share2, Plus, Link, Link2Off, Info, LayoutTemplate } from 'lucide-react';
+import { 
+  FileText, 
+  FileDown, 
+  Download, 
+  Copy, 
+  Share2, 
+  Plus, 
+  Link, 
+  Link2Off, 
+  Info, 
+  LayoutTemplate,
+  HardDrive
+} from 'lucide-react';
 import { clsx } from 'clsx';
 
 interface HeaderProps {
@@ -12,6 +24,8 @@ interface HeaderProps {
   onShare: () => void;
   syncScroll: boolean;
   onToggleSyncScroll: () => void;
+  onToggleFileExplorer: () => void;
+  isFileExplorerOpen: boolean;
 }
 
 export default function Header({
@@ -24,6 +38,8 @@ export default function Header({
   onShare,
   syncScroll,
   onToggleSyncScroll,
+  onToggleFileExplorer,
+  isFileExplorerOpen,
 }: HeaderProps) {
   return (
     <header className="h-16 px-6 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-between sticky top-0 z-50">
@@ -37,6 +53,21 @@ export default function Header({
       </div>
 
       <div className="flex items-center gap-2">
+        <button
+          onClick={onToggleFileExplorer}
+          className={clsx(
+            "flex items-center gap-2 px-4 py-2 rounded-lg transition-all font-medium text-sm",
+            isFileExplorerOpen
+              ? "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800"
+              : "border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+          )}
+        >
+          <HardDrive size={16} />
+          <span className="hidden lg:inline">Arquivos Locais</span>
+        </button>
+
+        <div className="h-8 w-[1px] bg-slate-200 dark:bg-slate-800 mx-1" />
+
         <button
           onClick={onNew}
           className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-colors font-medium text-sm"

@@ -24,6 +24,7 @@ import { nanoid } from 'nanoid';
 
 const AdminLogin = lazy(() => import('./components/AdminLogin'));
 const AdminDashboard = lazy(() => import('./components/AdminDashboard'));
+import FileExplorer from './components/FileExplorer';
 
 const DEFAULT_MARKDOWN = `# Bem-vindo ao Markdown Premium
 
@@ -82,6 +83,13 @@ function MainEditor() {
       return nanoid(12);
     }
   });
+  
+  // Estados para File System
+  const [isFileExplorerOpen, setIsFileExplorerOpen] = useState(false);
+  const [currentFileHandle, setCurrentFileHandle] = useState<FileSystemFileHandle | null>(null);
+  const [isAutoSave, setIsAutoSave] = useState(() => {
+    return localStorage.getItem('auto-save-local') === 'true';
+  });
 
   const containerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<HTMLTextAreaElement>(null);
@@ -131,6 +139,52 @@ function MainEditor() {
 
     return () => clearTimeout(timeout);
   }, [markdown]);
+
+  // Lógica de Auto-save Local
+  useEffect(() => {
+    if (!isAutoSave || !currentFileHandle || !markdown) return;
+    
+    const timeout = setTimeout(async () => {
+      try {
+        const writable = await currentFileHandle.createWritable();
+        await writable.write(markdown);
+        await writable.close();
+        console.log('Arquivo salvo automaticamente');
+      } catch (error) {
+        console.error('Erro no auto-save local:', error);
+      }
+    }, 2000); // Delay de 2 segundos para não sobrecarregar o disco
+
+    return () => clearTimeout(timeout);
+  }, [markdown, isAutoSave, currentFileHandle]);
+
+  const handleSaveToFile = async () => {
+    if (!currentFileHandle) return;
+    try {
+      setIsLoading(true);
+      const writable = await currentFileHandle.createWritable();
+      await writable.write(markdown);
+      await writable.close();
+      showToast('Arquivo salvo com sucesso!', 'success');
+    } catch (error) {
+      showToast('Erro ao salvar arquivo local.', 'error');
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleFileSelect = (content: string, handle: FileSystemFileHandle) => {
+    setMarkdown(content);
+    setCurrentFileHandle(handle);
+    showToast(`Arquivo "${handle.name}" carregado.`, 'success');
+  };
+
+  const handleToggleAutoSave = (value: boolean) => {
+    setIsAutoSave(value);
+    localStorage.setItem('auto-save-local', value.toString());
+    showToast(value ? 'Auto-save ativado.' : 'Auto-save desativado.', 'info');
+  };
 
   const handleEditorScroll = useCallback(() => {
     if (!syncScroll || isScrolling.current || !editorRef.current || !previewRef.current) return;
@@ -293,8 +347,19 @@ function MainEditor() {
         onShare={handleShare}
         syncScroll={syncScroll}
         onToggleSyncScroll={() => setSyncScroll(!syncScroll)}
+        onToggleFileExplorer={() => setIsFileExplorerOpen(!isFileExplorerOpen)}
+        isFileExplorerOpen={isFileExplorerOpen}
       />
       <main ref={containerRef} className="flex-1 flex overflow-hidden relative">
+        <FileExplorer 
+          isOpen={isFileExplorerOpen}
+          onClose={() => setIsFileExplorerOpen(false)}
+          onFileSelect={handleFileSelect}
+          currentFileHandle={currentFileHandle}
+          onSave={handleSaveToFile}
+          isAutoSave={isAutoSave}
+          onToggleAutoSave={handleToggleAutoSave}
+        />
         <div style={{ width: `${splitPosition}%` }} className="h-full border-r border-slate-200 dark:border-slate-800">
           <Editor value={markdown} onChange={setMarkdown} onScroll={handleEditorScroll} editorRef={editorRef} />
         </div>
