@@ -2,6 +2,11 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## ✨ Versão 1.2.2 - Abril 2026
+
+### Corrigido
+- **Admin Dashboard**: Correção na ordem de verificação de autenticação para evitar erros 403 (Forbidden) ao tentar buscar documentos antes do redirecionamento do usuário não logado.
+
 ## ✨ Versão 1.2.1 - Abril 2026
 
 ### Adicionado

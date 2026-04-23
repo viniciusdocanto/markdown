@@ -26,15 +26,22 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    checkAuth();
-    loadDocuments();
+    const initialize = async () => {
+      const hasAuth = await checkAuth();
+      if (hasAuth) {
+        loadDocuments();
+      }
+    };
+    initialize();
   }, []);
 
   const checkAuth = async () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
       navigate('/login');
+      return false;
     }
+    return true;
   };
 
   const loadDocuments = async () => {
