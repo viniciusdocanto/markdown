@@ -2,7 +2,7 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
-## ✨ Versão 1.2.0 - Abril 2026
+## ✨ Versão 1.2.1 - Abril 2026
 
 ### Adicionado
 - **Área Administrativa**: Implementação de sistema de gestão de documentos na rota `/admin`.

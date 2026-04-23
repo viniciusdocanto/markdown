@@ -2,7 +2,7 @@
   "name": "markdown",
   "private": true,
   "description": "Markdown Editor - Serverless",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "engines": {
     "node": ">=20.0.0"
   },
