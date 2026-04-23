@@ -15,6 +15,7 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
 ### Corrigido
 - **Content Security Policy (CSP)**: Ajustada para permitir scripts e conexões da Cloudflare Insights.
+- **TypeScript Build**: Correção de erros de tipagem na File System Access API (`values`, `showDirectoryPicker`) através da inclusão explícita dos tipos WICG no `vite-env.d.ts`.
 - **Links de Visualização**: Correção na geração de URLs no admin para considerar o `BASE_URL`, resolvendo links quebrados em subpastas.
 
 ## ✨ Versão 1.1.3 - Abril 2026
